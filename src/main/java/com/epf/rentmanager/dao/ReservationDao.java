@@ -86,21 +86,21 @@ public class ReservationDao {
 	public List<Reservation> findResaByVehicleId(long vehicleId) throws DaoException {
 		List<Reservation> reservations = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			 PreparedStatement statement = connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY)) {
-			statement.setLong(1, vehicleId);
-			try (ResultSet resultSet = statement.executeQuery()) {
+			 PreparedStatement ps = connection.prepareStatement(FIND_RESERVATIONS_BY_VEHICLE_QUERY)) {
+			ps.setLong(1, vehicleId);
+			try (ResultSet resultSet = ps.executeQuery()) {
 				while (resultSet.next()) {
 					int id = resultSet.getInt("id");
 					int clientId = resultSet.getInt("client_id");
 					LocalDate debut = resultSet.getDate("debut").toLocalDate();
 					LocalDate fin = resultSet.getDate("fin").toLocalDate();
-					Reservation reser = new Reservation(id, clientId, (int) vehicleId, debut, fin);
-					reservations.add(reser);
+					Reservation reservation = new Reservation(id, clientId, (int) vehicleId, debut, fin);
+					reservations.add(reservation);
 				}
 			}
 		}
 		catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new DaoException("Error ", e);
 		}return reservations;
 	}
 
@@ -119,7 +119,7 @@ public class ReservationDao {
 				reservations.add(reser);
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new DaoException("Error ", e);
 		}
 		return reservations;
 	}

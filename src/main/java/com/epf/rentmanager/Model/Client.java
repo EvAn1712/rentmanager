@@ -30,25 +30,6 @@ private LocalDate naissance;
                 '}';
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    public void setPrenom(String prenom) {
-        this.prenom = prenom;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public void setNaissance(LocalDate naissance) {
-        this.naissance = naissance;
-    }
 
     public int getID() {
         return ID;

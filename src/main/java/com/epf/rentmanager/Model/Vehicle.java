@@ -6,7 +6,7 @@ public class Vehicle {
     private int nb_place;
     private int ID;
 
-    public Vehicle(String constructeur, String modele, int nb_place, int ID) {
+    public Vehicle(int ID,String constructeur, String modele, int nb_place) {
         this.constructeur = constructeur;
         this.modele = modele;
         this.nb_place = nb_place;
@@ -21,5 +21,21 @@ public class Vehicle {
                 ", nb_place=" + nb_place +
                 ", ID=" + ID +
                 '}';
+    }
+
+    public String getConstructeur() {
+        return constructeur;
+    }
+
+    public String getModele() {
+        return modele;
+    }
+
+    public int getNb_place() {
+        return nb_place;
+    }
+
+    public int getID() {
+        return ID;
     }
 }
