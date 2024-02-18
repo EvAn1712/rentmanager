@@ -4,10 +4,8 @@ import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import com.epf.rentmanager.Model.Client;
-import com.epf.rentmanager.persistence.ConnectionManager;
 
 public class ClientDao {
 	
@@ -26,35 +24,34 @@ public class ClientDao {
 		return instance;
 	}
 	
-	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?), RETURN_GENERATED_KEYS;";
+	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?)";
 	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
 
 	public long create(Client client) throws DaoException {
 		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			 PreparedStatement ps = connexion.prepareStatement(CREATE_CLIENT_QUERY, PreparedStatement.RETURN_GENERATED_KEYS)) {
+			 PreparedStatement ps = connexion.prepareStatement(CREATE_CLIENT_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, client.getNom());
 			ps.setString(2, client.getPrenom());
 			ps.setString(3, client.getEmail());
 			ps.setDate(4, java.sql.Date.valueOf(client.getNaissance()));
 
 			int affectedRows = ps.executeUpdate();
+
 			if (affectedRows == 0) {
-				throw new DaoException("La création du client a échoué, aucune ligne affectée.");
+				throw new DaoException("Creating client failed, no rows affected.", null);
 			}
 
-			try (ResultSet resultSet = ps.getGeneratedKeys()) {
-				if (resultSet.next()) {
-					return resultSet.getLong(1);
+			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					return generatedKeys.getLong(1);
 				} else {
-					throw new DaoException("La création du client a échoué, aucun identifiant récupéré.");
+					throw new DaoException("Creating client failed, no ID obtained.", null);
 				}
-			} catch (SQLException e) {
-				throw new DaoException("Erreur lors de la fermeture des ressources", e);
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Erreur lors de la création du client", e);
+			throw new DaoException("Error", e);
 		}
 	}
 
@@ -64,20 +61,52 @@ public class ClientDao {
 			PreparedStatement ps = connexion.prepareStatement(DELETE_CLIENT_QUERY);
 			ps.setInt(1, client.getID());
 			ps.execute();
-			ps.close();
-			connexion.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new DaoException("Error ", e);
 		}
 		return client.getID();
 	}
 
 	public Client findById(long id) throws DaoException {
-		return new Client();
+		Client client = null;
+		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+			 PreparedStatement ps = connexion.prepareStatement(FIND_CLIENT_QUERY)) {
+			ps.setLong(1, id);
+			try (ResultSet rs = ps.executeQuery()) {
+				if (rs.next()) {
+					int ID = rs.getInt("id"); // Suppose que l'ID est stocké dans une colonne "id"
+					String nom = rs.getString("nom"); // Suppose que le nom est stocké dans une colonne "nom"
+					String prenom = rs.getString("prenom"); // Suppose que le prénom est stocké dans une colonne "prenom"
+					String mail = rs.getString("email");
+					LocalDate naissance = rs.getDate("naissance").toLocalDate();
+					client = new Client(ID,nom, prenom, mail,naissance);// Assurez-vous de récupérer toutes les autres propriétés du client
+				}
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Error finding client by ID.", e);
+		}
+		return client;
 	}
+
 
 	public List<Client> findAll() throws DaoException {
-		return new ArrayList<Client>();
-	}
+		List<Client> clients = new ArrayList<>();
+		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+			 PreparedStatement ps = connexion.prepareStatement(FIND_CLIENTS_QUERY);
+			 ResultSet rs = ps.executeQuery()) {
 
+			while (rs.next()) {
+				int ID = rs.getInt("id"); // Suppose que l'ID est stocké dans une colonne "id"
+				String nom = rs.getString("nom"); // Suppose que le nom est stocké dans une colonne "nom"
+				String prenom = rs.getString("prenom"); // Suppose que le prénom est stocké dans une colonne "prenom"
+				String email = rs.getString("email");
+				LocalDate naissance = rs.getDate("naissance").toLocalDate();
+				Client client = new Client(ID, nom, prenom, email, naissance);
+				clients.add(client);
+			}
+		} catch (SQLException e) {
+			throw new DaoException("Error finding all clients.", e);
+		}
+		return clients;
+	}
 }
