@@ -30,34 +30,34 @@ public class ReservationDao {
 			 PreparedStatement ps = connection.prepareStatement(CREATE_RESERVATION_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setInt(1, reservation.getClient_id());
 			ps.setInt(2, reservation.getVehicle_id());
-			ps.setDate(3, Date.valueOf(reservation.getDebut()));
-			ps.setDate(4, Date.valueOf(reservation.getFin()));
+			ps.setDate(3, java.sql.Date.valueOf(reservation.getDebut()));
+			ps.setDate(4, java.sql.Date.valueOf(reservation.getFin()));
 
-			ps.execute();
+			int affectedRows = ps.executeUpdate();
+			if (affectedRows == 0) {
+				throw new DaoException("Creating resavtion failed, no rows affected.", null);
+			}
 
-			try (ResultSet resultSet = ps.getGeneratedKeys()) {
-				if (resultSet.next()) {
-					return resultSet.getInt(1);
+			try (ResultSet generatedKeys = ps.getGeneratedKeys()) {
+				if (generatedKeys.next()) {
+					return generatedKeys.getLong(1);
 				} else {
-					throw new DaoException("Creating reservation failed, no ID obtained.", e);
+					throw new DaoException("Creating reservation failed, no ID obtained.", null);
 				}
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new DaoException("Error", e);
 		}
 	}
 
 	public long delete(Reservation reservation) throws DaoException {
 		try {
-			Connection connection = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			PreparedStatement statement = connection.prepareStatement(DELETE_RESERVATION_QUERY);
-			statement.setInt(1,reservation.getID());
-			statement.execute();
-			connection.close();
-			statement.close();
-		}
-		catch (SQLException e) {
-			throw new RuntimeException(e);
+			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+			PreparedStatement ps = connexion.prepareStatement(DELETE_RESERVATION_QUERY);
+			ps.setInt(1, reservation.getID());
+			ps.execute();
+		} catch (SQLException e) {
+			throw new DaoException("Error ", e);
 		}
 		return reservation.getID();
 	}
@@ -65,20 +65,20 @@ public class ReservationDao {
 	public List<Reservation> findResaByClientId(long clientId) throws DaoException {
 		List<Reservation> reservations = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
-			 PreparedStatement statement = connection.prepareStatement(FIND_RESERVATIONS_BY_CLIENT_QUERY)) {
-			statement.setLong(1, clientId);
-			try (ResultSet resultSet = statement.executeQuery()) {
+			 PreparedStatement ps = connection.prepareStatement(FIND_RESERVATIONS_BY_CLIENT_QUERY)) {
+			ps.setLong(1, clientId);
+			try (ResultSet resultSet = ps.executeQuery()) {
 				while (resultSet.next()) {
 					int id = resultSet.getInt("id");
 					int vehicle_id = resultSet.getInt("vehicle_id");
 					LocalDate debut = resultSet.getDate("debut").toLocalDate();
 					LocalDate fin = resultSet.getDate("fin").toLocalDate();
-					Reservation reser = new Reservation(id, (int)clientId, vehicle_id, debut, fin);
-					reservations.add(reser);
+					Reservation reservation = new Reservation(id, (int)clientId, vehicle_id, debut, fin);
+					reservations.add(reservation);
 				}
 			}
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new DaoException("Error ", e);
 		}
 		return reservations;
 	}
@@ -103,6 +103,7 @@ public class ReservationDao {
 			throw new RuntimeException(e);
 		}return reservations;
 	}
+
 	public List<Reservation> findAll() throws DaoException {
 		List<Reservation> reservations = new ArrayList<>();
 		try (Connection connection = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
