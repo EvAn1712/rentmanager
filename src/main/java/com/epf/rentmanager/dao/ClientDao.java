@@ -96,9 +96,9 @@ public class ClientDao {
 			 ResultSet rs = ps.executeQuery()) {
 
 			while (rs.next()) {
-				int ID = rs.getInt("id"); // Suppose que l'ID est stocké dans une colonne "id"
-				String nom = rs.getString("nom"); // Suppose que le nom est stocké dans une colonne "nom"
-				String prenom = rs.getString("prenom"); // Suppose que le prénom est stocké dans une colonne "prenom"
+				int ID = rs.getInt("id");
+				String nom = rs.getString("nom");
+				String prenom = rs.getString("prenom");
 				String email = rs.getString("email");
 				LocalDate naissance = rs.getDate("naissance").toLocalDate();
 				Client client = new Client(ID, nom, prenom, email, naissance);
@@ -108,5 +108,7 @@ public class ClientDao {
 			throw new DaoException("Error finding all clients.", e);
 		}
 		return clients;
+
+
 	}
 }

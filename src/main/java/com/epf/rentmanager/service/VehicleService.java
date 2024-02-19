@@ -2,11 +2,13 @@ package com.epf.rentmanager.service;
 
 import java.util.List;
 
+import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.exception.DaoException;
 import com.epf.rentmanager.exception.ServiceException;
 import com.epf.rentmanager.model.Client;
 import com.epf.rentmanager.model.Vehicle;
 import com.epf.rentmanager.dao.ClientDao;
+import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.dao.VehicleDao;
 
 public class VehicleService {
@@ -29,17 +31,32 @@ public class VehicleService {
 	
 	public long create(Vehicle vehicle) throws ServiceException {
 		// TODO: créer un véhicule
-		
+		if (vehicle.getConstructeur().isEmpty() || vehicle.getNb_place() <= 1) {
+			throw new ServiceException("Le constructeur ne peut pas être vide et le nombre de places doit être supérieur à 1.", null);
+		}
+		try {
+			return vehicleDao.create(vehicle);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la création du véhicule.", e);
+		}
 	}
 
 	public Vehicle findById(long id) throws ServiceException {
 		// TODO: récupérer un véhicule par son id
-		
+		try{
+			return  vehicleDao.findById(id);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la recherche par ID",e);
+		}
 	}
 
 	public List<Vehicle> findAll() throws ServiceException {
 		// TODO: récupérer tous les clients
-		
+		try {
+			return vehicleDao.findAll();
+		}catch (DaoException e){
+			throw new ServiceException("Erreur lors de la recherche ",e);
+		}
 	}
 	
 }

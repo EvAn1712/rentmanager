@@ -30,6 +30,9 @@ private LocalDate naissance;
                 '}';
     }
 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
 
     public int getID() {
         return ID;
