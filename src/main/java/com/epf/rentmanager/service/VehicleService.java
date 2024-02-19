@@ -3,10 +3,10 @@ package com.epf.rentmanager.service;
 import java.util.List;
 
 import com.epf.rentmanager.dao.DaoException;
-import com.epf.rentmanager.exception.DaoException;
-import com.epf.rentmanager.exception.ServiceException;
-import com.epf.rentmanager.model.Client;
-import com.epf.rentmanager.model.Vehicle;
+import com.epf.rentmanager.dao.DaoException;
+import com.epf.rentmanager.service.ServiceException;
+import com.epf.rentmanager.Model.Client;
+import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.dao.VehicleDao;
@@ -55,7 +55,15 @@ public class VehicleService {
 		try {
 			return vehicleDao.findAll();
 		}catch (DaoException e){
-			throw new ServiceException("Erreur lors de la recherche ",e);
+			throw new ServiceException(e.getMessage(),e);
+		}
+	}
+
+	public long delete(Vehicle vehicle) throws ServiceException {
+		try{
+			return vehicleDao.delete(vehicle);
+		}catch (DaoException e){
+			throw new ServiceException("Erreur lors de la supression ",e);
 		}
 	}
 	

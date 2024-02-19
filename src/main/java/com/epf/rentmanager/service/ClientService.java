@@ -54,5 +54,13 @@ public class ClientService {
 			throw new ServiceException("Erreur lors de la recherche ",e);
 		}
 	}
+
+	public long delete(Client client) throws ServiceException {
+		try{
+			return clientDao.delete(client);
+		}catch (DaoException e){
+			throw new ServiceException("Erreur lors de la supression ",e);
+		}
+	}
 	
 }

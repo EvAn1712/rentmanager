@@ -74,16 +74,15 @@ public class ClientDao {
 			ps.setLong(1, id);
 			try (ResultSet rs = ps.executeQuery()) {
 				if (rs.next()) {
-					int ID = rs.getInt("id"); // Suppose que l'ID est stocké dans une colonne "id"
-					String nom = rs.getString("nom"); // Suppose que le nom est stocké dans une colonne "nom"
-					String prenom = rs.getString("prenom"); // Suppose que le prénom est stocké dans une colonne "prenom"
+					String nom = rs.getString("nom");
+					String prenom = rs.getString("prenom");
 					String mail = rs.getString("email");
 					LocalDate naissance = rs.getDate("naissance").toLocalDate();
-					client = new Client(ID,nom, prenom, mail,naissance);// Assurez-vous de récupérer toutes les autres propriétés du client
+					client = new Client((int) id, nom, prenom, mail,naissance);
 				}
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Error finding client by ID.", e);
+			throw new DaoException(e.getMessage(), e);
 		}
 		return client;
 	}

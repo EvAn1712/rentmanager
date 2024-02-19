@@ -1,8 +1,7 @@
 package com.epf.rentmanager.Model;
 
-import sun.util.resources.LocaleData;
-
 import java.time.LocalDate;
+
 
 public class Client {
 private int ID;
@@ -13,6 +12,12 @@ private LocalDate naissance;
 
     public Client(int ID, String nom, String prenom, String email, LocalDate naissance) {
         this.ID = ID;
+        this.nom = nom;
+        this.prenom = prenom;
+        this.email = email;
+        this.naissance = naissance;
+    }
+    public Client( String nom, String prenom, String email, LocalDate naissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;

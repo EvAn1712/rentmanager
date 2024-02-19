@@ -5,10 +5,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-
-import com.epf.rentmanager.Model.Client;
 import com.epf.rentmanager.Model.Vehicle;
-import com.epf.rentmanager.persistence.ConnectionManager;
 
 public class VehicleDao {
 	
@@ -30,9 +27,7 @@ public class VehicleDao {
 		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			 PreparedStatement ps = connexion.prepareStatement(CREATE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, vehicle.getConstructeur());
-			ps.setString(2, vehicle.getModele());
-			ps.setInt(3, vehicle.getNb_place());
-			ps.setInt(4, vehicle.getID());
+			ps.setInt(2, vehicle.getNb_place());
 
 			int affectedRows = ps.executeUpdate();
 
@@ -59,7 +54,7 @@ public class VehicleDao {
 			ps.setInt(1, vehicle.getID());
 			ps.execute();
 		} catch (SQLException e) {
-			throw new DaoException("Error ", e);
+			throw new DaoException(e.getMessage(), e);
 		}
 		return vehicle.getID();
 	}
@@ -72,15 +67,13 @@ public class VehicleDao {
 			try (ResultSet rs = ps.executeQuery()) {
 
 				if (rs.next()) {
-					int ID = rs.getInt("id");
 					String constructeur = rs.getString("constructeur");
-					String modele = rs.getString("modele");
-					int nb_place = rs.getInt("nb_place");
-					vehicle = new Vehicle (ID, constructeur, modele, nb_place);
+					int nb_place = rs.getInt("nb_places");
+					vehicle = new Vehicle ((int)id, constructeur, nb_place);
 				}
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Error finding client by ID.", e);
+			throw new DaoException(e.getMessage(), e);
 		}
 		return vehicle;
 	}
@@ -94,13 +87,13 @@ public class VehicleDao {
 			while (rs.next()) {
 				int ID = rs.getInt("id");
 				String constructeur = rs.getString("constructeur");
-				String modele = rs.getString("modele");
-				int nb_place = rs.getInt("nb_place");
-				Vehicle vehicle = new Vehicle (ID, constructeur, modele, nb_place);
+				int nb_place = rs.getInt("nb_places");
+				Vehicle vehicle = new Vehicle (ID, constructeur, nb_place);
 				vehicles.add(vehicle);
 			}
 		} catch (SQLException e) {
-			throw new DaoException("Error finding all clients.", e);
+
+			throw new DaoException(e.getMessage(), e);
 		}
 		return vehicles;
 	}
