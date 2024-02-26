@@ -13,14 +13,9 @@ public class Vehicle {
         this.ID = ID;
     }
 
-    public Vehicle(int ID,String constructeur, int nb_place) {
+    public Vehicle(String constructeur,String modele, int nb_place) {
         this.constructeur = constructeur;
-        this.nb_place = nb_place;
-        this.ID = ID;
-    }
-
-    public Vehicle(String constructeur, int nb_place) {
-        this.constructeur = constructeur;
+        this.modele=modele;
         this.nb_place = nb_place;
     }
 
