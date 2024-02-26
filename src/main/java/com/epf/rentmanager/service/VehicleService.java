@@ -37,7 +37,7 @@ public class VehicleService {
 		try {
 			return vehicleDao.create(vehicle);
 		} catch (DaoException e) {
-			throw new ServiceException("Erreur lors de la création du véhicule.", e);
+			throw new ServiceException(e.getMessage(), e);
 		}
 	}
 
@@ -46,7 +46,7 @@ public class VehicleService {
 		try{
 			return  vehicleDao.findById(id);
 		} catch (DaoException e) {
-			throw new ServiceException("Erreur lors de la recherche par ID",e);
+			throw new ServiceException(e.getMessage(),e);
 		}
 	}
 
@@ -63,7 +63,7 @@ public class VehicleService {
 		try{
 			return vehicleDao.delete(vehicle);
 		}catch (DaoException e){
-			throw new ServiceException("Erreur lors de la supression ",e);
+			throw new ServiceException(e.getMessage(),e);
 		}
 	}
 	

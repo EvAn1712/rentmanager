@@ -28,6 +28,7 @@ public class VehicleDao {
 			 PreparedStatement ps = connexion.prepareStatement(CREATE_VEHICLE_QUERY, Statement.RETURN_GENERATED_KEYS)) {
 			ps.setString(1, vehicle.getConstructeur());
 			ps.setInt(2, vehicle.getNb_place());
+			//ps.setString(3, vehicle.getModele());
 
 			int affectedRows = ps.executeUpdate();
 
@@ -68,8 +69,10 @@ public class VehicleDao {
 
 				if (rs.next()) {
 					String constructeur = rs.getString("constructeur");
+					//String modele = rs.getString("modele");
 					int nb_place = rs.getInt("nb_places");
 					vehicle = new Vehicle ((int)id, constructeur, nb_place);
+					//vehicle = new Vehicle ((int)id, constructeur, modele, nb_place);
 				}
 			}
 		} catch (SQLException e) {
@@ -87,8 +90,10 @@ public class VehicleDao {
 			while (rs.next()) {
 				int ID = rs.getInt("id");
 				String constructeur = rs.getString("constructeur");
+				//String modele = rs.getString("modele");
 				int nb_place = rs.getInt("nb_places");
 				Vehicle vehicle = new Vehicle (ID, constructeur, nb_place);
+				//Vehicle vehicle = new Vehicle (ID, constructeur, modele, nb_place);
 				vehicles.add(vehicle);
 			}
 		} catch (SQLException e) {
