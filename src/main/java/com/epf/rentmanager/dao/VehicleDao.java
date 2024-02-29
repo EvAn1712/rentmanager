@@ -108,12 +108,16 @@ public class VehicleDao {
 		return vehicles;
 	}
 
-	public int count() {
+	public int count() throws DaoException {
 		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			 PreparedStatement ps = connexion.prepareStatement(NOMBRE_VEHICLES_QUERY);
 			 ResultSet rs = ps.executeQuery()) {
 
-			return rs.getInt(1);
+			if (rs.next()) {
+				return rs.getInt("total_vehicles");
+			} else {
+				return 0;
+			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
