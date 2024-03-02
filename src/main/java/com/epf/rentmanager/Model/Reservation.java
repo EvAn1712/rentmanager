@@ -10,6 +10,8 @@ public class Reservation {
     private int vehicle_id;
     private LocalDate debut;
     private LocalDate fin;
+    private String vehicleName;
+    private String clientName;
 
     public Reservation(int ID, int client_id, int vehicle_id, LocalDate debut, LocalDate fin) {
         this.ID = ID;
@@ -56,4 +58,21 @@ public class Reservation {
     public LocalDate getFin() {
         return fin;
     }
+
+    public void setVehicleName(String constructeur, String modele) {
+        this.vehicleName = constructeur + " " + modele;
+    }
+
+    public String getVehicleName() {
+        return this.vehicleName;
+    }
+
+    public void setClientName(String nom, String prenom) {
+        this.clientName = nom + " " + prenom;
+    }
+
+    public String getClientName() {
+        return this.clientName;
+    }
+
 }

@@ -51,7 +51,7 @@ public class VehicleCreateServlet extends HttpServlet {
             Vehicle newVehicle = new Vehicle(manufacturer, model, seats);
 
             vehicleService.create(newVehicle);
-            response.sendRedirect(request.getContextPath() + "/home");
+            response.sendRedirect(request.getContextPath() + "/cars");
         } catch (NumberFormatException | ServiceException e) {
 
             e.printStackTrace();
