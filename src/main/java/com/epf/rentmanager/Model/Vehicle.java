@@ -19,6 +19,10 @@ public class Vehicle {
         this.nb_place = nb_place;
     }
 
+    public Vehicle() {
+
+    }
+
     @Override
     public String toString() {
         return "Vehicle{" +
@@ -42,5 +46,9 @@ public class Vehicle {
     }
     public int getID() {
         return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

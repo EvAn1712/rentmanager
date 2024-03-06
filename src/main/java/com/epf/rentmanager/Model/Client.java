@@ -24,6 +24,10 @@ private LocalDate naissance;
         this.naissance = naissance;
     }
 
+    public Client() {
+
+    }
+
     @Override
     public String toString() {
         return "Client{" +
@@ -57,5 +61,9 @@ private LocalDate naissance;
 
     public LocalDate getNaissance() {
         return naissance;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 }

@@ -29,10 +29,12 @@ public class VehicleListServlet extends HttpServlet {
         try {
             vehicles = vehicleService.findAll();
             request.setAttribute("vehicles", vehicles);
+
             request.getRequestDispatcher("/WEB-INF/views/vehicles/list.jsp").forward(request, response);
 
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
      }
+
 }

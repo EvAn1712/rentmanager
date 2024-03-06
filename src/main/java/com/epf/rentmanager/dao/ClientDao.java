@@ -25,9 +25,10 @@ public class ClientDao {
 	}
 	
 	private static final String CREATE_CLIENT_QUERY = "INSERT INTO Client(nom, prenom, email, naissance) VALUES(?, ?, ?, ?)";
-	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Client WHERE id=?;";
+	private static final String DELETE_CLIENT_QUERY = "DELETE FROM Reservation WHERE client_id = ?; DELETE FROM Client WHERE id=?;";
 	private static final String FIND_CLIENT_QUERY = "SELECT nom, prenom, email, naissance FROM Client WHERE id=?;";
 	private static final String FIND_CLIENTS_QUERY = "SELECT id, nom, prenom, email, naissance FROM Client;";
+	private static final String NOMBRE_CLIENTS_QUERY = "SELECT COUNT(*) AS total_clients FROM Client;";
 
 	public long create(Client client) throws DaoException {
 		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
@@ -60,6 +61,8 @@ public class ClientDao {
 			Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
 			PreparedStatement ps = connexion.prepareStatement(DELETE_CLIENT_QUERY);
 			ps.setInt(1, client.getID());
+			ps.setInt(2, client.getID());
+
 			ps.execute();
 		} catch (SQLException e) {
 			throw new DaoException("Error ", e);
@@ -108,6 +111,20 @@ public class ClientDao {
 		}
 		return clients;
 
+	}
 
+	public int count() throws DaoException {
+		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+			 PreparedStatement ps = connexion.prepareStatement(NOMBRE_CLIENTS_QUERY);
+			 ResultSet rs = ps.executeQuery()) {
+
+			if (rs.next()) {
+				return rs.getInt("total_clients");
+			} else {
+				return 0;
+			}
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }

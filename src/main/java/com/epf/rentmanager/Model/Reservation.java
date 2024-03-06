@@ -28,6 +28,10 @@ public class Reservation {
         this.fin = fin;
     }
 
+    public Reservation() {
+
+    }
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -75,4 +79,7 @@ public class Reservation {
         return this.clientName;
     }
 
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 }

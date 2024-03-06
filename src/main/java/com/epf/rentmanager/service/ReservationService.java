@@ -87,5 +87,13 @@ public class ReservationService {
         return null;
     }
 
+    public int count() throws ServiceException{
+        try{
+            return reservationDao.count();
+        }catch (DaoException e){
+            throw new ServiceException(e.getMessage(), e);
+        }
+    }
+
 }
 
