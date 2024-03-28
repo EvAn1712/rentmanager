@@ -11,16 +11,21 @@ import javax.servlet.http.HttpServletResponse;
 import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehicleService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 @WebServlet("/cars")
 public class VehicleListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
-    private VehicleService vehicleService;
+    @Autowired
+     VehicleService vehicleService;
 
-    public void init() throws ServletException {
-        this.vehicleService = VehicleService.getInstance();
-    }
+@Override
+public void init() throws ServletException {
+    super.init();
+    SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+}
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

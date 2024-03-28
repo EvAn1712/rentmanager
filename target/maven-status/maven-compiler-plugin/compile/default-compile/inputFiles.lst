@@ -9,6 +9,7 @@
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/Model/Client.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/persistence/ConnectionManager.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/persistence/FillDatabase.java
+/Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/configuration/WebConfiguration.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/servlet/ClientDetailsServlet.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/servlet/ClientCreateServlet.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/servlet/ReservationDeleteServlet.java
@@ -20,6 +21,7 @@
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/dao/ReservationDao.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/servlet/ClientListServlet.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/servlet/VehicleDeleteServlet.java
+/Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/configuration/AppConfiguration.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/service/ReservationService.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/Model/Reservation.java
 /Users/evan/Desktop/S8/JAVA/rentmanager/src/main/java/com/epf/rentmanager/servlet/VehicleCreateServlet.java

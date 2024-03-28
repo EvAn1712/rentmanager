@@ -10,25 +10,19 @@ import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.dao.ClientDao;
 import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.dao.VehicleDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class VehicleService {
 
 	private VehicleDao vehicleDao;
 	public static VehicleService instance;
-	
-	private VehicleService() {
-		this.vehicleDao = VehicleDao.getInstance();
+	@Autowired
+	private VehicleService(VehicleDao vehicleDao) {
+		this.vehicleDao = vehicleDao;
 	}
-	
-	public static VehicleService getInstance() {
-		if (instance == null) {
-			instance = new VehicleService();
-		}
-		
-		return instance;
-	}
-	
-	
+
 	public long create(Vehicle vehicle) throws ServiceException {
 		// TODO: créer un véhicule
 		if (vehicle.getConstructeur().isEmpty() || vehicle.getNb_place() <= 1) {
@@ -74,7 +68,5 @@ public class VehicleService {
 			throw new ServiceException(e.getMessage(), e);
 		}
 	}
-
-
 	
 }

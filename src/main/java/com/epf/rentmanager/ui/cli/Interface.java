@@ -13,11 +13,11 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class Interface {
-
-    private static final ClientService clientService = ClientService.getInstance();
+    static VehicleService vehicleService; static ReservationService reservationService; static ClientService clientService;
+    /*private static final ClientService clientService = ClientService.getInstance();
     private static final VehicleService vehicleService = VehicleService.getInstance();
     private static final ReservationService reservationService = ReservationService.getInstance();
-
+*/
 
     public static void main(String[] args) {
         displayMainMenu();

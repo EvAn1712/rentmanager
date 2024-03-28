@@ -5,27 +5,20 @@ import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.dao.ReservationDao;
 import com.epf.rentmanager.dao.VehicleDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
-
+@Service
 public class ReservationService {
 
 
     private ReservationDao reservationDao;
     public static ReservationService instance;
-
-    private ReservationService() {
-        this.reservationDao = ReservationDao.getInstance();
+@Autowired
+    private ReservationService(ReservationDao reservationDao) {
+        this.reservationDao = reservationDao;
     }
-
-    public static ReservationService getInstance() {
-        if (instance == null) {
-            instance = new ReservationService();
-        }
-
-        return instance;
-    }
-
 
     public long create(Reservation reservation) throws ServiceException {
         // TODO: créer une reservation
