@@ -47,6 +47,10 @@ public class VehicleCreateServlet extends HttpServlet {
         } catch (NumberFormatException | ServiceException e) {
 
             e.printStackTrace();
+            if (e.getMessage().equals("le nombre de places doit être compris entre 2 et 9.")) {
+                request.setAttribute("error_place", e.getMessage());
+            }
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request,response);
         }
     }
 }

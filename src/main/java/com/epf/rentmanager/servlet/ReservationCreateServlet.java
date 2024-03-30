@@ -79,6 +79,34 @@ public void init() throws ServletException {
         } catch (NumberFormatException | ServiceException e) {
 
             e.printStackTrace();
+            if (e.getMessage().equals("La voiture est déjà reservée pour les dates séléctionnées.")) {
+                request.setAttribute("error_date", e.getMessage());
+            }
+            if (e.getMessage().equals("La voiture ne peut pas être réservée plus de 7 jours de suite par le même utilisateur.")) {
+                request.setAttribute("error_date2", e.getMessage());
+            }
+            if (e.getMessage().equals("La voiture ne peut pas être réservée 30 jours de suite sans pause.")) {
+                request.setAttribute("error_date3", e.getMessage());
+            }
+
+            List<Vehicle> cars = null;
+            try {
+                cars = vehicleService.findAll();
+            } catch (ServiceException ex) {
+                throw new RuntimeException(ex);
+            }
+            List<Client> clients = null;
+            try {
+                clients = clientService.findAll();
+            } catch (ServiceException ex) {
+                throw new RuntimeException(ex);
+            }
+
+            request.setAttribute("cars", cars);
+            request.setAttribute("clients", clients);
+
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request,response);
+
         }
     }
 }

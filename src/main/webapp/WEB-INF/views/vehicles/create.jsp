@@ -53,6 +53,9 @@
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="seats" name="seats" placeholder="Nombre de places" required>
+                                        <% if (request.getAttribute("error_place") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_place") %></span>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <!--

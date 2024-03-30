@@ -32,9 +32,12 @@
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="car" name="car">
-                                            <c:forEach items="${cars}" var="car">
-                                                <option value="${car.ID}">${car.constructeur} ${car.modele}</option>
-                                            </c:forEach>
+                                            <c:if test="${not empty cars}">
+                                                <c:forEach items="${cars}" var="car">
+                                                    <option value="${car.ID}">${car.constructeur} ${car.modele}</option>
+                                                </c:forEach>
+                                            </c:if>
+
                                         </select>
 
                                     </div>
@@ -44,9 +47,11 @@
 
                                     <div class="col-sm-10">
                                         <select class="form-control" id="client" name="client">
-                                            <c:forEach items="${clients}" var="clients">
-                                                <option value="${clients.ID}">${clients.nom} ${clients.prenom}</option>
-                                            </c:forEach>
+                                            <c:if test="${not empty clients}">
+                                                <c:forEach items="${clients}" var="client">
+                                                    <option value="${client.ID}">${client.nom} ${client.prenom}</option>
+                                                </c:forEach>
+                                            </c:if>
                                         </select>
                                     </div>
                                 </div>
@@ -64,6 +69,14 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="end" name="end" required
                                                data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <% if (request.getAttribute("error_date") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_date") %></span>
+                                        <% } else if (request.getAttribute("error_date2") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_date2") %></span>
+                                        <% } else if (request.getAttribute("error_date3") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_date3") %></span>
+                                        <% } %>
+
                                     </div>
                                 </div>
                             </div>

@@ -32,6 +32,9 @@
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="Nom">
+                                        <% if (request.getAttribute("error_nom") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_nom") %></span>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -39,13 +42,19 @@
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="first_name" name="first_name" required placeholder="Prenom">
+                                        <% if (request.getAttribute("error_prenom") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_prenom") %></span>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
 
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" name="email" required pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse e-mail valide (ex: utilisateur@exemple.com)">
+                                        <input type="email" class="form-control" id="email" name="email" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse e-mail valide (ex: utilisateur@exemple.com)">
+                                        <% if (request.getAttribute("error_mail") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_mail") %></span>
+                                        <% } %>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -53,6 +62,9 @@
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="naissance" name="naissance" required
                                                data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <% if (request.getAttribute("error_age") != null) { %>
+                                        <span class="text-danger"><%= request.getAttribute("error_age") %></span>
+                                        <% } %>
                                     </div>
                                 </div>
                             </div>

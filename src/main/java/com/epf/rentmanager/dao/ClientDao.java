@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.epf.rentmanager.Model.Client;
+import com.epf.rentmanager.service.ServiceException;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -108,6 +109,16 @@ public class ClientDao {
 		}
 		return clients;
 
+	}
+
+	public boolean emailExists(String email) throws DaoException {
+		List<Client> clients = findAll();
+		for (Client client : clients) {
+			if (client.getEmail().equals(email)) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public int count() throws DaoException {
