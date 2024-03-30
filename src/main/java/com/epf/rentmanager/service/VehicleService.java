@@ -24,9 +24,8 @@ public class VehicleService {
 	}
 
 	public long create(Vehicle vehicle) throws ServiceException {
-		// TODO: créer un véhicule
-		if (vehicle.getConstructeur().isEmpty() || vehicle.getNb_place() <= 1) {
-			throw new ServiceException("Le constructeur ne peut pas être vide et le nombre de places doit être supérieur à 1.", null);
+		if (vehicle.getNb_place() > 9 || vehicle.getNb_place() < 2) {
+			throw new ServiceException("le nombre de places doit être compris entre 2 et 9.", null);
 		}
 		try {
 			return vehicleDao.create(vehicle);
@@ -36,7 +35,6 @@ public class VehicleService {
 	}
 
 	public Vehicle findById(long id) throws ServiceException {
-		// TODO: récupérer un véhicule par son id
 		try{
 			return  vehicleDao.findById(id);
 		} catch (DaoException e) {
@@ -45,7 +43,6 @@ public class VehicleService {
 	}
 
 	public List<Vehicle> findAll() throws ServiceException {
-		// TODO: récupérer tous les clients
 		try {
 			return vehicleDao.findAll();
 		}catch (DaoException e){

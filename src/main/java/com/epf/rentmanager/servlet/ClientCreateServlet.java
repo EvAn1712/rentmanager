@@ -53,21 +53,26 @@ public class ClientCreateServlet extends HttpServlet {
 
             Client newClient = new Client(last_name, first_name, email, naissance);
 
-            LocalDate dateActuelle = LocalDate.now();
-            int age = Period.between(naissance, dateActuelle).getYears();
-
-            if (age < 18) {
-                request.setAttribute("erreur", "Le client doit avoir au moins 18 ans.");
-                request.getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request, response);
-            } else {
-                clientService.create(newClient);
-            }
-
-
+            clientService.create(newClient);
             response.sendRedirect(request.getContextPath() + "/users");
         } catch (NumberFormatException | ServiceException e) {
 
             e.printStackTrace();
+            if (e.getMessage().equals("Le client doit avoir au moins 18 ans.")) {
+                request.setAttribute("error_age", e.getMessage());
+            }
+            if (e.getMessage().equals("Cette adresse mail existe déjà")) {
+                request.setAttribute("error_mail", e.getMessage());
+            }
+            if(e.getMessage().equals("Le prénom du client doit faire au moins 3 caractères.")){
+                request.setAttribute("error_prenom", e.getMessage());
+            }
+            if(e.getMessage().equals("Le nom du client doit faire au moins 3 caractères.")){
+                request.setAttribute("error_nom", e.getMessage());
+            }
+
+            request.setAttribute("error", e.getMessage());
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/users/create.jsp").forward(request,response);
         }
     }
 }
