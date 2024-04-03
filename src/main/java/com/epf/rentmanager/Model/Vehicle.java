@@ -37,6 +37,18 @@ public class Vehicle {
         return constructeur;
     }
 
+    public void setConstructeur(String constructeur) {
+        this.constructeur = constructeur;
+    }
+
+    public void setModele(String modele) {
+        this.modele = modele;
+    }
+
+    public void setNb_place(int nb_place) {
+        this.nb_place = nb_place;
+    }
+
     public int getNb_place() {
         return nb_place;
     }

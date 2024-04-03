@@ -8,6 +8,8 @@ com/epf/rentmanager/persistence/ConnectionManager.class
 com/epf/rentmanager/servlet/ReservationListServlet.class
 com/epf/rentmanager/service/VehicleService.class
 com/epf/rentmanager/dao/VehicleDao.class
+com/epf/rentmanager/servlet/ReservationModifierServlet.class
+com/epf/rentmanager/servlet/ClientModifierServlet.class
 com/epf/rentmanager/service/ClientService.class
 com/epf/rentmanager/servlet/ClientListServlet.class
 com/epf/rentmanager/utils/IOUtils.class
@@ -15,6 +17,7 @@ com/epf/rentmanager/dao/DaoException.class
 com/epf/rentmanager/servlet/VehicleListServlet.class
 com/epf/rentmanager/servlet/ReservationDeleteServlet.class
 com/epf/rentmanager/dao/ClientDao.class
+com/epf/rentmanager/servlet/VehicleModifierServlet.class
 com/epf/rentmanager/servlet/ClientDeleteServlet.class
 com/epf/rentmanager/servlet/ClientCreateServlet.class
 com/epf/rentmanager/Model/Reservation.class

@@ -4,11 +4,11 @@ import java.time.LocalDate;
 
 
 public class Client {
-private int ID;
-private String nom;
-private String prenom;
-private String email;
-private LocalDate naissance;
+    private int ID;
+    private String nom;
+    private String prenom;
+    private String email;
+    private LocalDate naissance;
 
     public Client(int ID, String nom, String prenom, String email, LocalDate naissance) {
         this.ID = ID;
@@ -65,5 +65,9 @@ private LocalDate naissance;
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public void setPrenom(String prenom) {
+        this.prenom = prenom;
     }
 }

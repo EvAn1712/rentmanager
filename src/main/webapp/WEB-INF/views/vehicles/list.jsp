@@ -36,7 +36,7 @@
                                 </tr>
                                 <tr>
 
-                                <c:forEach items="${vehicles}" var="vehicle">
+                                    <c:forEach items="${vehicles}" var="vehicle">
                                     <td>${vehicle.ID}.</td>
                                     <td>${vehicle.constructeur}</td>
                                     <td>${vehicle.modele}</td>
@@ -46,7 +46,7 @@
                                         <a class="btn btn-primary" href="${pageContext.request.contextPath}/cars/details?id=${vehicle.ID}">
                                             <i class="fa fa-play"></i>
                                         </a>
-                                        <a class="btn btn-success disabled" href="#">
+                                        <a class="btn btn-success" href="${pageContext.request.contextPath}/cars/modifier?id=${vehicle.ID}">
                                             <i class="fa fa-edit"></i>
                                         </a>
                                         <a class="btn btn-danger " href="${pageContext.request.contextPath}/cars/delete?id=${vehicle.ID}">
@@ -74,4 +74,3 @@
 <%@ include file="/WEB-INF/views/common/js_imports.jsp" %>
 </body>
 </html>
-

@@ -25,13 +25,21 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/rentmanager/users/create">
+                        <form class="form-horizontal" method="post" action="<%= (request.getAttribute("client") != null) ? "/rentmanager/users/modifier" : "/rentmanager/users/create" %>">
+                            <% if (request.getAttribute("client") != null) { %>
+                            <input type="hidden" name="clientId" value="${client.ID}" />
+                            <% if (session.getAttribute("error") != null) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= session.getAttribute("error") %>
+                            </div>
+                            <% session.removeAttribute("error"); %>
+                            <% } %>
+                            <% } %>
                             <div class="box-body">
                                 <div class="form-group">
                                     <label for="last_name" class="col-sm-2 control-label">Nom</label>
-
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="Nom">
+                                        <input type="text" class="form-control" id="last_name" name="last_name" required placeholder="Nom" <% if (request.getAttribute("client") != null) { %> value="${ client.nom}"<% } %> />
                                         <% if (request.getAttribute("error_nom") != null) { %>
                                         <span class="text-danger"><%= request.getAttribute("error_nom") %></span>
                                         <% } %>
@@ -39,19 +47,18 @@
                                 </div>
                                 <div class="form-group">
                                     <label for="first_name" class="col-sm-2 control-label">Prenom</label>
-
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="first_name" name="first_name" required placeholder="Prenom">
+                                        <input type="text" class="form-control" id="first_name" name="first_name" required placeholder="Prenom" <% if (request.getAttribute("client") != null) { %> value="${ client.prenom}"<% } %>/>
                                         <% if (request.getAttribute("error_prenom") != null) { %>
                                         <span class="text-danger"><%= request.getAttribute("error_prenom") %></span>
                                         <% } %>
                                     </div>
                                 </div>
+                                <% if (request.getAttribute("client") == null) { %>
                                 <div class="form-group">
                                     <label for="email" class="col-sm-2 control-label">Email</label>
-
                                     <div class="col-sm-10">
-                                        <input type="email" class="form-control" id="email" name="email" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse e-mail valide (ex: utilisateur@exemple.com)">
+                                        <input type="email" class="form-control" id="email" name="email" required placeholder="Email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title="Veuillez entrer une adresse e-mail valide (ex: utilisateur@exemple.com)" />
                                         <% if (request.getAttribute("error_mail") != null) { %>
                                         <span class="text-danger"><%= request.getAttribute("error_mail") %></span>
                                         <% } %>
@@ -60,17 +67,18 @@
                                 <div class="form-group">
                                     <label for="naissance" class="col-sm-2 control-label">Naissance</label>
                                     <div class="col-sm-10">
-                                        <input type="text" class="form-control" id="naissance" name="naissance" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                        <input type="text" class="form-control" id="naissance" name="naissance" required data-inputmask="'alias': 'dd/mm/yyyy'" data-mask />
+                                        <!-- Gestion des erreurs -->
                                         <% if (request.getAttribute("error_age") != null) { %>
                                         <span class="text-danger"><%= request.getAttribute("error_age") %></span>
                                         <% } %>
                                     </div>
                                 </div>
+                                <% } %>
                             </div>
                             <!-- /.box-body -->
                             <div class="box-footer">
-                                <button type="submit" class="btn btn-info pull-right">Ajouter</button>
+                                <button type="submit" class="btn btn-info pull-right"><%= (request.getAttribute("client") != null) ? "Modifier" : "Ajouter" %></button>
                             </div>
                             <!-- /.box-footer -->
                         </form>

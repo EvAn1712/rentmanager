@@ -20,8 +20,8 @@ public class ClientService {
 	private ClientService(ClientDao clientDao) {
 		this.clientDao = clientDao;
 	}
-	
-	
+
+
 	public long create(Client client) throws ServiceException {
 		try {
 
@@ -44,15 +44,15 @@ public class ClientService {
 		} catch (DaoException e) {
 			throw new ServiceException("Erreur lors de la création du client.", e);
 		}
-    }
+	}
 
 	public Client findById(long id) throws ServiceException {
 		try{
 			return  clientDao.findById(id);
 		} catch (DaoException e) {
-            throw new ServiceException("Erreur lors de la recherche par ID",e);
-        }
-    }
+			throw new ServiceException("Erreur lors de la recherche par ID",e);
+		}
+	}
 
 	public List<Client> findAll() throws ServiceException {
 		try {
@@ -75,6 +75,21 @@ public class ClientService {
 			return clientDao.count();
 		}catch (DaoException e){
 			throw new ServiceException(e.getMessage(), e);
+		}
+	}
+
+	public void modifierClient(Client client) throws ServiceException {
+		try {
+			if (client.getNom().length() < 3) {
+				throw new ServiceException("Le nom du client doit faire au moins 3 caractères.", null);
+			}
+			if(client.getPrenom().length() < 3){
+				throw new ServiceException("Le prénom du client doit faire au moins 3 caractères.", null);
+			}
+			client.setNom(client.getNom().toUpperCase());
+			clientDao.modifier(client);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la modification du client", e);
 		}
 	}
 

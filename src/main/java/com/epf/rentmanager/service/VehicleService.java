@@ -65,5 +65,16 @@ public class VehicleService {
 			throw new ServiceException(e.getMessage(), e);
 		}
 	}
-	
+
+	public void modifierVehicle(Vehicle vehicle) throws ServiceException {
+		try {
+			if (vehicle.getNb_place() > 9 || vehicle.getNb_place() < 2) {
+				throw new ServiceException("le nombre de places doit être compris entre 2 et 9.", null);
+			}
+			vehicleDao.modifier(vehicle);
+		} catch (DaoException e) {
+			throw new ServiceException("Erreur lors de la modification du client", e);
+		}
+	}
+
 }

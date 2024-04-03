@@ -25,8 +25,18 @@
                     <!-- Horizontal Form -->
                     <div class="box">
                         <!-- form start -->
-                        <form class="form-horizontal" method="post" action="/rentmanager/rents/create">
+                        <form class="form-horizontal" method="post" action="<%= (request.getAttribute("reservation") != null) ? "/rentmanager/rents/modifier" : "/rentmanager/rents/create" %>">
+                            <% if (request.getAttribute("reservation") != null) { %>
+                            <input type="hidden" name="reservationId" value="${reservation.ID}" />
+                            <% if (session.getAttribute("error_date") != null) { %>
+                            <div class="alert alert-danger" role="alert">
+                                <%= session.getAttribute("error_date") %>
+                            </div>
+                            <% session.removeAttribute("error_date"); %>
+                            <% } %>
+                            <% } %>
                             <div class="box-body">
+                                <% if (request.getAttribute("reservation") == null) { %>
                                 <div class="form-group">
                                     <label for="car" class="col-sm-2 control-label">Voiture</label>
 
@@ -55,12 +65,13 @@
                                         </select>
                                     </div>
                                 </div>
+                                <% } %>
                                 <div class="form-group">
                                     <label for="begin" class="col-sm-2 control-label">Date de debut</label>
 
                                     <div class="col-sm-10">
                                         <input type="text" class="form-control" id="begin" name="begin" required
-                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
+                                               data-inputmask="'alias': 'dd/mm/yyyy'" data-mask >
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -71,12 +82,7 @@
                                                data-inputmask="'alias': 'dd/mm/yyyy'" data-mask>
                                         <% if (request.getAttribute("error_date") != null) { %>
                                         <span class="text-danger"><%= request.getAttribute("error_date") %></span>
-                                        <% } else if (request.getAttribute("error_date2") != null) { %>
-                                        <span class="text-danger"><%= request.getAttribute("error_date2") %></span>
-                                        <% } else if (request.getAttribute("error_date3") != null) { %>
-                                        <span class="text-danger"><%= request.getAttribute("error_date3") %></span>
                                         <% } %>
-
                                     </div>
                                 </div>
                             </div>

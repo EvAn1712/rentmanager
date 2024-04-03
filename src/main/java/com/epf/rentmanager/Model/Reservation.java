@@ -82,4 +82,28 @@ public class Reservation {
     public void setID(int ID) {
         this.ID = ID;
     }
+
+    public void setClient_id(int client_id) {
+        this.client_id = client_id;
+    }
+
+    public void setVehicle_id(int vehicle_id) {
+        this.vehicle_id = vehicle_id;
+    }
+
+    public void setDebut(LocalDate debut) {
+        this.debut = debut;
+    }
+
+    public void setFin(LocalDate fin) {
+        this.fin = fin;
+    }
+
+    public void setVehicleName(String vehicleName) {
+        this.vehicleName = vehicleName;
+    }
+
+    public void setClientName(String clientName) {
+        this.clientName = clientName;
+    }
 }

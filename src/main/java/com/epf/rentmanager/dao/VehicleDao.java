@@ -5,6 +5,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+
+import com.epf.rentmanager.Model.Client;
 import com.epf.rentmanager.Model.Vehicle;
 import org.springframework.stereotype.Repository;
 
@@ -22,6 +24,8 @@ public class VehicleDao {
 	private static final String FIND_VEHICLE_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle WHERE id=?;";
 	private static final String FIND_VEHICLES_QUERY = "SELECT id, constructeur, modele, nb_places FROM Vehicle;";
 	private static final String NOMBRE_VEHICLES_QUERY = "SELECT COUNT(*) AS total_vehicles FROM Vehicle;";
+	private static final String MODIFIER_VEHICLES_QUERY = "UPDATE Vehicle SET constructeur = ?, modele = ?, nb_places = ? WHERE id = ?;";
+
 
 	public long create(Vehicle vehicle) throws DaoException {
 		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
@@ -117,6 +121,19 @@ public class VehicleDao {
 			}
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
+		}
+	}
+
+	public void modifier(Vehicle vehicle) throws DaoException {
+		try (Connection connexion = DriverManager.getConnection("jdbc:h2:~/RentManagerDatabase", "", "");
+			 PreparedStatement ps = connexion.prepareStatement(MODIFIER_VEHICLES_QUERY)){;
+			ps.setString(1, vehicle.getConstructeur());
+			ps.setString(2, vehicle.getModele());
+			ps.setLong(3, vehicle.getNb_place());
+			ps.setLong(4, vehicle.getID());
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw new DaoException("Erreur lors de la mise à jour du client", e);
 		}
 	}
 }
