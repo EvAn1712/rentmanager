@@ -22,7 +22,7 @@ public class ReservationService {
     private ReservationDao reservationDao;
     public static ReservationService instance;
     @Autowired
-    private ReservationService(ReservationDao reservationDao) {
+    public ReservationService(ReservationDao reservationDao) {
         this.reservationDao = reservationDao;
     }
 
@@ -58,7 +58,7 @@ public class ReservationService {
         }
     }
     public void userReservation (Reservation reservation) throws ServiceException{
-        List<Reservation> userReservations = null;
+        List<Reservation> userReservations;
         try {
             userReservations = reservationDao.findByClientIdAndVehicleId(reservation.getClient_id(), reservation.getVehicle_id());
         } catch (DaoException e) {
