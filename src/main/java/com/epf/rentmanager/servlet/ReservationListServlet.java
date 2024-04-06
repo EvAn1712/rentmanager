@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @WebServlet("/rents")
@@ -41,6 +42,7 @@ public void init() throws ServletException {
         List<Reservation> reservations = null;
         try {
             reservations = reservationService.findAll();
+            reservations.sort(Comparator.comparing(Reservation::getDebut));
             for (Reservation reservation : reservations) {
                 Vehicle vehicle = vehicleService.findById(reservation.getVehicle_id());
                 Client client = clientService.findById(reservation.getClient_id());

@@ -1,9 +1,7 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Model.Reservation;
-import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.service.ReservationService;
-import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -19,20 +17,21 @@ public class ReservationDeleteServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
-     ReservationService reservationService;
+    ReservationService reservationService;
 
 
-@Override
-public void init() throws ServletException {
-    super.init();
-    SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             long id = Long.parseLong(request.getParameter("id"));
 
-            Reservation reservation= new Reservation();
+            Reservation reservation = new Reservation();
             reservation.setID((int) id);
 
             reservationService.delete(reservation);

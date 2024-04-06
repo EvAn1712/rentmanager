@@ -1,9 +1,7 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Model.Client;
-import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.service.ClientService;
-import com.epf.rentmanager.service.VehicleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
@@ -18,8 +16,9 @@ import java.io.IOException;
 public class ClientDeleteServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired
-     ClientService clientService;
-@Override
+    ClientService clientService;
+
+    @Override
     public void init() throws ServletException {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
@@ -30,7 +29,7 @@ public class ClientDeleteServlet extends HttpServlet {
         try {
             long id = Long.parseLong(request.getParameter("id"));
 
-            Client client= new Client();
+            Client client = new Client();
             client.setID((int) id);
 
             clientService.delete(client);

@@ -1,8 +1,6 @@
 package com.epf.rentmanager.Model;
 
-
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Reservation {
     private int ID;

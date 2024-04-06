@@ -17,7 +17,8 @@ public class Client {
         this.email = email;
         this.naissance = naissance;
     }
-    public Client( String nom, String prenom, String email, LocalDate naissance) {
+
+    public Client(String nom, String prenom, String email, LocalDate naissance) {
         this.nom = nom;
         this.prenom = prenom;
         this.email = email;

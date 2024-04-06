@@ -13,9 +13,9 @@ public class Vehicle {
         this.ID = ID;
     }
 
-    public Vehicle(String constructeur,String modele, int nb_place) {
+    public Vehicle(String constructeur, String modele, int nb_place) {
         this.constructeur = constructeur;
-        this.modele=modele;
+        this.modele = modele;
         this.nb_place = nb_place;
     }
 
@@ -56,6 +56,7 @@ public class Vehicle {
     public String getModele() {
         return modele;
     }
+
     public int getID() {
         return ID;
     }

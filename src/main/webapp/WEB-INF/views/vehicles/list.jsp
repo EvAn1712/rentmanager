@@ -6,12 +6,9 @@
 <div class="wrapper">
 
     <%@ include file="/WEB-INF/views/common/header.jsp" %>
-    <!-- Left side column. contains the logo and sidebar -->
     <%@ include file="/WEB-INF/views/common/sidebar.jsp" %>
 
-    <!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-        <!-- Content Header (Page header) -->
         <section class="content-header">
             <h1>
                 Voitures
@@ -19,7 +16,6 @@
             </h1>
         </section>
 
-        <!-- Main content -->
         <section class="content">
             <div class="row">
                 <div class="col-md-12">
@@ -31,7 +27,6 @@
                                     <th>Marque</th>
                                     <th>Modele</th>
                                     <th>Nombre de places</th>
-                                    <!--<th>Propriétaire</th>-->
                                     <th>Action</th>
                                 </tr>
                                 <tr>
@@ -41,7 +36,6 @@
                                     <td>${vehicle.constructeur}</td>
                                     <td>${vehicle.modele}</td>
                                     <td>${vehicle.nb_place}</td>
-                                    <!--<td>John Doe</td>-->
                                     <td>
                                         <a class="btn btn-primary" href="${pageContext.request.contextPath}/cars/details?id=${vehicle.ID}">
                                             <i class="fa fa-play"></i>
@@ -57,19 +51,14 @@
                                 </c:forEach>
                             </table>
                         </div>
-                        <!-- /.box-body -->
                     </div>
-                    <!-- /.box -->
                 </div>
-                <!-- /.col -->
             </div>
         </section>
-        <!-- /.content -->
     </div>
 
     <%@ include file="/WEB-INF/views/common/footer.jsp" %>
 </div>
-<!-- ./wrapper -->
 
 <%@ include file="/WEB-INF/views/common/js_imports.jsp" %>
 </body>

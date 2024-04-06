@@ -20,23 +20,22 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 
-import static com.epf.rentmanager.utils.IOUtils.print;
 @WebServlet("/rents/create")
 public class ReservationCreateServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
-     ReservationService reservationService;
+    ReservationService reservationService;
     @Autowired
-     ClientService clientService;
+    ClientService clientService;
     @Autowired
-     VehicleService vehicleService;
+    VehicleService vehicleService;
 
-@Override
-public void init() throws ServletException {
-    super.init();
-    SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -61,7 +60,8 @@ public void init() throws ServletException {
         request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 
     }
-    protected void doPost (HttpServletRequest request, HttpServletResponse response)
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
 
@@ -71,7 +71,7 @@ public void init() throws ServletException {
             LocalDate debut = LocalDate.parse(request.getParameter("begin"), dateFormatter);
             LocalDate fin = LocalDate.parse(request.getParameter("end"), dateFormatter);
 
-            Reservation newReservation = new Reservation(client_id, vehicle_id , debut, fin);
+            Reservation newReservation = new Reservation(client_id, vehicle_id, debut, fin);
 
             reservationService.create(newReservation);
 
@@ -105,7 +105,7 @@ public void init() throws ServletException {
             request.setAttribute("cars", cars);
             request.setAttribute("clients", clients);
 
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request,response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
 
         }
     }

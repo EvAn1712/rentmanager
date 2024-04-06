@@ -1,7 +1,5 @@
 package com.epf.rentmanager.servlet;
 
-
-import com.epf.rentmanager.Model.Client;
 import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehicleService;
@@ -28,6 +26,7 @@ public class VehicleModifierServlet extends HttpServlet {
     }
 
     private long id;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {

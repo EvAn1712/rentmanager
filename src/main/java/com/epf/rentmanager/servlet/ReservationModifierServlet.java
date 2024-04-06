@@ -1,6 +1,5 @@
 package com.epf.rentmanager.servlet;
 
-import com.epf.rentmanager.Model.Client;
 import com.epf.rentmanager.Model.Reservation;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ReservationService;
@@ -43,10 +42,9 @@ public class ReservationModifierServlet extends HttpServlet {
             throws ServletException, IOException {
         try {
             id = Long.parseLong(request.getParameter("id"));
-            reservation= reservationService.getReservationById((int) id);
+            reservation = reservationService.getReservationById((int) id);
             client_id = reservation.getClient_id();
-            vehicle_id =reservation.getVehicle_id();
-            System.out.println(reservation);
+            vehicle_id = reservation.getVehicle_id();
             request.setAttribute("reservation", reservation);
             request.getRequestDispatcher("/WEB-INF/views/rents/create.jsp").forward(request, response);
         } catch (ServiceException e) {
@@ -68,9 +66,8 @@ public class ReservationModifierServlet extends HttpServlet {
             reservation2.setFin(fin);
             reservation2.setClient_id(client_id);
             reservation2.setVehicle_id(vehicle_id);
-            System.out.println(reservation2);
 
-            reservationService.modifierReservation(reservation2 , reservation);
+            reservationService.modifierReservation(reservation2, reservation);
 
             response.sendRedirect(request.getContextPath() + "/rents");
         } catch (ServiceException e) {

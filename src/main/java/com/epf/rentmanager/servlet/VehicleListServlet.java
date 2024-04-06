@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import com.epf.rentmanager.Model.Vehicle;
 import com.epf.rentmanager.service.ServiceException;
 import com.epf.rentmanager.service.VehicleService;
@@ -19,13 +20,13 @@ public class VehicleListServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
-     VehicleService vehicleService;
+    VehicleService vehicleService;
 
-@Override
-public void init() throws ServletException {
-    super.init();
-    SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -40,6 +41,6 @@ public void init() throws ServletException {
         } catch (ServiceException e) {
             throw new RuntimeException(e);
         }
-     }
+    }
 
 }

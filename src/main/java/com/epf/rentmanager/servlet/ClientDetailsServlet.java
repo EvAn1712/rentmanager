@@ -1,6 +1,5 @@
 package com.epf.rentmanager.servlet;
 
-import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.Model.Client;
 import com.epf.rentmanager.Model.Reservation;
 import com.epf.rentmanager.Model.Vehicle;
@@ -25,12 +24,13 @@ public class ClientDetailsServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
-     ClientService clientService;
+    ClientService clientService;
     @Autowired
-     ReservationService reservationService;
+    ReservationService reservationService;
     @Autowired
-     VehicleService vehicleService;
-@Override
+    VehicleService vehicleService;
+
+    @Override
     public void init() throws ServletException {
         super.init();
         SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
@@ -42,13 +42,13 @@ public class ClientDetailsServlet extends HttpServlet {
         try {
             long id = Long.parseLong(request.getParameter("id"));
             Client client = clientService.findById(id);
-            List<Reservation> reservations = reservationService.findResaByClientId( (int) id);
+            List<Reservation> reservations = reservationService.findResaByClientId((int) id);
             List<Vehicle> vehicles = new ArrayList<>();
             List<Integer> listIdVehicle = new ArrayList<>();
             Vehicle vehicleAAjouter = new Vehicle();
-            for( Reservation reservation : reservations) {
+            for (Reservation reservation : reservations) {
                 vehicleAAjouter = vehicleService.findById(reservation.getVehicle_id());
-                if (!listIdVehicle.contains(vehicleAAjouter.getID())){
+                if (!listIdVehicle.contains(vehicleAAjouter.getID())) {
                     reservation.setVehicleName(vehicleAAjouter.getConstructeur(), vehicleAAjouter.getModele());
                     vehicles.add(vehicleAAjouter);
                     listIdVehicle.add(vehicleAAjouter.getID());

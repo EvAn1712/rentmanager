@@ -1,7 +1,6 @@
 package com.epf.rentmanager.servlet;
 
 import com.epf.rentmanager.Model.Client;
-import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.service.ClientService;
 import com.epf.rentmanager.service.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +18,7 @@ public class ClientModifierServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     @Autowired
     ClientService clientService;
+
     @Override
     public void init() throws ServletException {
         super.init();
@@ -26,6 +26,7 @@ public class ClientModifierServlet extends HttpServlet {
     }
 
     private long id;
+
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {

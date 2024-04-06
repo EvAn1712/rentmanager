@@ -1,6 +1,5 @@
 package com.epf.rentmanager.servlet;
 
-import com.epf.rentmanager.dao.DaoException;
 import com.epf.rentmanager.Model.Client;
 import com.epf.rentmanager.Model.Reservation;
 import com.epf.rentmanager.Model.Vehicle;
@@ -25,17 +24,17 @@ public class VehicleDetailsServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
-     ClientService clientService;
+    ClientService clientService;
     @Autowired
-     ReservationService reservationService;
+    ReservationService reservationService;
     @Autowired
-     VehicleService vehicleService;
+    VehicleService vehicleService;
 
-@Override
-public void init() throws ServletException {
-    super.init();
-    SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
-}
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        SpringBeanAutowiringSupport.processInjectionBasedOnCurrentContext(this);
+    }
 
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -43,15 +42,15 @@ public void init() throws ServletException {
         try {
             long id = Long.parseLong(request.getParameter("id"));
             Vehicle vehicle = vehicleService.findById(id);
-            List<Reservation> reservations = reservationService.findResaByVehicleId( (int) id);
+            List<Reservation> reservations = reservationService.findResaByVehicleId((int) id);
             List<Client> clients = new ArrayList<>();
             List<Integer> listIdClient = new ArrayList<>();
             Client clientAAjouter = new Client();
-            for( Reservation reservation : reservations) {
+            for (Reservation reservation : reservations) {
                 clientAAjouter = clientService.findById(reservation.getClient_id());
-                if (!listIdClient.contains(clientAAjouter.getID())){
+                if (!listIdClient.contains(clientAAjouter.getID())) {
                     reservation.setClientName(clientAAjouter.getNom(), clientAAjouter.getPrenom());
-                     clients.add(clientAAjouter);
+                    clients.add(clientAAjouter);
                     listIdClient.add(clientAAjouter.getID());
                 }
             }

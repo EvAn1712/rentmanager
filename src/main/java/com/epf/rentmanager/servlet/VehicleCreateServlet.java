@@ -19,7 +19,7 @@ public class VehicleCreateServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
     @Autowired
-     VehicleService vehicleService;
+    VehicleService vehicleService;
 
     @Override
     public void init() throws ServletException {
@@ -30,10 +30,11 @@ public class VehicleCreateServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-            request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
+        request.getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
 
     }
-    protected void doPost (HttpServletRequest request, HttpServletResponse response)
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
             String manufacturer = request.getParameter("manufacturer");
@@ -50,7 +51,7 @@ public class VehicleCreateServlet extends HttpServlet {
             if (e.getMessage().equals("le nombre de places doit être compris entre 2 et 9.")) {
                 request.setAttribute("error_place", e.getMessage());
             }
-            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request,response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/views/vehicles/create.jsp").forward(request, response);
         }
     }
 }
